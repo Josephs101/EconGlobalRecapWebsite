@@ -13,12 +13,19 @@ html {
 /* make sizing with padding/border predictable */
 html {
     box-sizing: border-box;
+    interpolate-size: allow-keywords;
 }
 
 *,
 *::before,
 *::after {
     box-sizing: inherit;
+}
+
+.grid {
+    display: grid;
+    gap: var(--space-lg);
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 }
 
 .site-header {
@@ -50,17 +57,19 @@ html {
     gap: 20px;
     width: 100%;
     max-height: 100px;
+    /*
     flex-wrap: wrap;
+    */
     /* Prevents links from "crushing" each other */
+
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: var(--space-sm) var(--space-lg);
-    font-size: clamp(0.9rem, 1rem, 1.1rem);
+    font-size: clamp(1.3rem, 1.5rem, 1.7rem);
 }
 
 .nav-list {
-    font-size: 1.5rem;
     list-style: none;
     font-weight: 600;
     display: flex;
@@ -73,11 +82,6 @@ html {
     height: auto;
     display: block;
     margin-left: auto;
-}
-
-a {
-    text-decoration: none;
-    color: #fefae0;
 }
 
 body {
@@ -116,18 +120,27 @@ footer {
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     padding: calc(var(--space-md) * 1.5);
-    margin: calc(2*var(--space-sm)) 0;
+    margin: var(--space-md) 0;
     font-weight: 600;
 }
 
 .card-resources {
     padding: var(--space-sm) calc(var(--space-md) * 1.5);
+    margin: var(--space-lg) 0;
+    background: #dfdbbc;
 }
-.grid {
-    display: grid;
-    gap: var(--space-lg);
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+
+.container-column {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+    line-height: 1.6;
+    background: #fefae0;
+    font-weight: 600;
+
 }
+
+
 
 h1 {
     margin: var(--space-md) 0;
@@ -153,42 +166,115 @@ p {
     line-height: 1.6;
 }
 
-.references-list li {
-  padding-bottom: var(--space-md);;
-  padding-left: var(--space-lg);
+footer p {
+    margin: 0;
+    text-align: center;
+    font-size: 0.95rem;
+}
 
-  font-size: large;
-  line-height: 1.5;
+a {
+    text-decoration: none;
+    color: #fefae0;
+}
+
+.home-link {
+    display: flex;
+    align-items: center; 
+    text-decoration: none; 
+    gap: var(--space-md); 
+}
+
+.home-text {
+    list-style: none;
+    font-weight: 600;
+    display: flex;
+    margin: 0;
+    gap: var(--space-lg);
+}
+
+.references-list li {
+    padding-bottom: var(--space-md);
+    ;
+    padding-left: var(--space-lg);
+
+    font-size: large;
+    line-height: 1.5;
 }
 
 .references-list a {
-  color: #bc6c25;
-  text-decoration: none;
+    color: #bc6c25;
+    text-decoration: none;
 }
 
 .references-list a:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 ul.custom-list {
     list-style: none;
-    /* Removes default bullets */
+    /* no default bullets */
     padding-left: 0;
 }
 
 ul.custom-list li {
     padding: 10px;
     border-left: 4px solid #bc6c25;
-    /* Add an accent color bar */
+    /* accent color bar */
     background: #a7c957;
     margin-bottom: 5px;
 }
 
-footer p {
-    margin: 0;
-    text-align: center;
-    font-size: 0.95rem;
+details {
+    padding: 10px;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+    border-left: 4px solid #bc6c25;
+    /*accent color bar */
+    background: #a7c957;
+    margin-bottom: 5px;
+    overflow: hidden;
+    height: 2.9rem;
+    /*height of summary */
+    transition: height 0.3s ease-in-out;
 }
+
+details:nth-of-type(odd) {
+  background-color: #c7b726; 
+}
+
+/* the clickable heading */
+summary {
+    font-weight: bold;
+    cursor: pointer;
+    list-style: none;
+    /* no default arrow, grrr */
+    position: relative;
+    padding-left: 20px;
+}
+
+details[open] {
+    height: auto;
+}
+
+summary::before {
+    content: "▶";
+    position: absolute;
+    left: 0;
+    transition: transform 0.3s;
+}
+
+/*rotates it*/
+details[open] summary::before {
+    transform: rotate(90deg);
+}
+
+.drop-down-info {
+    padding-top: 10px;
+    border-top: 2px solid #bc6c25;
+    margin-top: 10px;
+}
+
+
 
 /* consistent vertical rhythm for document sections */
 section,
